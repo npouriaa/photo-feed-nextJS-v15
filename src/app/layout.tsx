@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Photo feed",
@@ -18,16 +19,22 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type RootLayoutProps = {
+  children: ReactNode;
+  modal: ReactNode;
+};
+
+export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body
+        className={`${poppins.className} flex flex-col justify-center items-center gap-4 bg-[#f2f2f2]`}
+      >
         <Header />
-        <main>{children}</main>
+        <main className="max-sm:w-full xl:w-4/5 flex flex-col p-4">
+          {children}
+          {modal}
+        </main>
         <Footer />
       </body>
     </html>
